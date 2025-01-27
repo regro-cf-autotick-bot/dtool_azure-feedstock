@@ -7,23 +7,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/dtool-azure/dtool-azure-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/dtool-azure/dtool-azure-{{ version }}.tar.gz
   sha256: e78ce652565689307aee40a7acf0c1d8a4209757588002afbcbc1e61b3dedb3a
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - azure-storage-blob ==2.1.0
     - azure-storage-common ==2.1.0
     - dtoolcore >=3.17
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/jic-dtool/dtool-azure
